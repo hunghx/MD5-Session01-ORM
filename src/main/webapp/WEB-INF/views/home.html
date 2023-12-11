@@ -6,5 +6,31 @@
 </head>
 <body>
 <h1>Đây là trang chủ</h1>
+
+<table border="1" cellpadding="10" th:cellpadding="10" >
+    <tr>
+        <th>Id</th>
+        <th>Name</th>
+        <th>Birthday</th>
+        <th>phone</th>
+        <th>Sex</th>
+<!--        <th>Action</th>-->
+    </tr>
+    <tr th:each="cus :${pages.content}">
+        <td th:text="${cus.id}"></td>
+        <td th:text="${cus.name}"></td>
+        <td th:text="${cus.birthDay}"></td>
+        <td th:text="${cus.phone}"></td>
+        <td th:text="${cus.sex}"></td>
+    </tr>
+</table>
+<nav aria-label="Page navigation example">
+    <ul class="pagination">
+        <li class="page-item" th:if="${pages.hasPrevious()}"><a class="page-link" th:href="@{/list(page=${pages.number+-1},sort=${pages.sort},size=${pages.size},search=${search})}">Previous</a></li>
+        <li class="page-item" th:each="p,loop:${#numbers.sequence(1,pages.getTotalPages())}"><a class="page-link" th:href="@{/list(page=${loop.index})}" th:text="${loop.count}">1</a></li>
+
+        <li class="page-item" th:if="${pages.hasNext()}"><a class="page-link" th:href="@{/list()}">Next</a></li>
+    </ul>
+</nav>
 </body>
 </html>
